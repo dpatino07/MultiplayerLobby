@@ -100,6 +100,8 @@ function getRandomSafeSpot() {
     let playerElements = {};
 
     const gameContainer = document.querySelector(".game-container");
+    const playerNameInput = document.querySelector("#player-name");
+    const playerColorButton = document.querySelector("#player-color");
 
     function handleArrowPress(xChange=0, yChange=0) {
         const newX = players[playerId].x + xChange;
@@ -192,14 +194,16 @@ function getRandomSafeSpot() {
             playerRef = firebase.database().ref(`players/${playerId}`);
 
             const name = createName();
+            playerNameInput.value = name;
+            const {x, y} = getRandomSafeSpot();
 
             playerRef.set({
                 id: playerId,
                 name,
                 direction: "right",
                 color: randomFromArray(playerColors),
-                x: 3,
-                y: 3,
+                x,
+                y,
                 coins: 0,
             })
 
