@@ -184,6 +184,25 @@ function getRandomSafeSpot() {
             gameContainer.removeChild(playerElements(removedKey));
             delete playerElements[removedKey];
         })
+
+
+        // Update player name with text input
+        playerNameInput.addEventListener("change", () => {
+            const newName = e.target.value || createName();
+            playerNameInput.value = newName;
+            playerRef.update({
+                name: newName
+            })
+        })
+
+        // Update player color on button click
+        playerColorButton.addEventListener("click", () => {
+            const mySkinIndex = playerColors.indexOf(players[playerId].color);
+            const nextColor = playerColors[mySkinIndex + 1] || playerColors[0];
+            playerRef.update( {
+                color: nextColor
+            })
+        })
     }
 
     firebase.auth().onAuthStateChanged((user) => {
